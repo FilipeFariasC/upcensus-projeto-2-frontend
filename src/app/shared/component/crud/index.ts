@@ -1,0 +1,1 @@
+export { BaseAddComponent } from './base-add.component'

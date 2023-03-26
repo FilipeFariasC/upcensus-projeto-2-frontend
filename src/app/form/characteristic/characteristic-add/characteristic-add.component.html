@@ -1,1 +1,25 @@
-<p>characteristic-add works!</p>
+<mat-card>
+  <mat-card>
+      <mat-card-header>
+          <mat-card-title>{{title}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div fxLayout="row wrap" fxLayoutGap="10px grid">
+              <div fxFlex="50" fxFlex.gt-xs="50">
+                <app-input-text id="value" label="Valor" [control]="form.valueControl"></app-input-text>
+              </div>
+              <div fxFlex="50" fxFlex.gt-xs="50">
+                <app-input-select id="attribute" label="Atributo" [control]="form.attribute" [options]="attributeOptions"></app-input-select>
+              </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutGap="10px grid">
+              <div class="w-full" fxFlex="100" fxFlex.gt-xs="100">
+                <app-input-text-area id="description" label="Descrição" [control]="form.description"></app-input-text-area>
+              </div>
+            </div>
+            
+          </form>
+      </mat-card-content>
+  </mat-card>
+</mat-card>
