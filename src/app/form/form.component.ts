@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-form',
   template: '<router-outlet></router-outlet>'
 })
-export class AppComponent {
-  title = 'upcensus-frontend';
+export class FormComponent {
+
 }

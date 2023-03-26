@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-field',
   template: '<router-outlet></router-outlet>'
 })
-export class AppComponent {
-  title = 'upcensus-frontend';
+export class FieldComponent {
+
 }
