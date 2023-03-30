@@ -7,10 +7,10 @@
           <form [formGroup]="form" (ngSubmit)="save()">
             <div fxLayout="row wrap" fxLayoutGap="10px grid">
               <div fxFlex="50" fxFlex.gt-xs="50">
-                <app-input-text id="value" label="Valor" [control]="form.valueControl"></app-input-text>
+                <app-input-select id="attribute" label="Atributo" [control]="form.attribute" [options]="attributeOptions"></app-input-select>
               </div>
               <div fxFlex="50" fxFlex.gt-xs="50">
-                <app-input-select id="attribute" label="Atributo" [control]="form.attribute" [options]="attributeOptions"></app-input-select>
+                <app-input-text id="value" label="Valor" [control]="form.valueControl"></app-input-text>
               </div>
             </div>
             <div fxLayout="row wrap" fxLayoutGap="10px grid">
@@ -18,7 +18,7 @@
                 <app-input-text-area id="description" label="Descrição" [control]="form.description"></app-input-text-area>
               </div>
             </div>
-            
+            <button mat-button class="outline outline-2 outline-lime-400" [disabled]="form.disabled || form.invalid">Cadastrar</button>
           </form>
       </mat-card-content>
   </mat-card>

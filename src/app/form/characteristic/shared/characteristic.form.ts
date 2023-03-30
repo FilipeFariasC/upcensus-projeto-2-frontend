@@ -19,7 +19,7 @@ export class CharacteristicAddForm extends FormAdd<CharacteristicRequest, Charac
     return this.getControl('value');
   }
   get description(): FormControl {
-    return this.getControl('value');
+    return this.getControl('description');
   }
 
   fromModel(model: CharacteristicResponse): void {

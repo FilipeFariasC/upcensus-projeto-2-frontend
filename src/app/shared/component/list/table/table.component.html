@@ -1,0 +1,62 @@
+
+<table class="w-full" *ngIf="dataSource.data.length > 0 else empty" mat-table [dataSource]="dataSource">
+
+  <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
+    <th *matHeaderCellDef mat-header-cell [style.text-align]="'center'">
+      {{ column.name }}
+    </th>
+    <th
+      mat-cell
+      *matCellDef="let data"
+      [attr.data-label]="column.name"
+      [style.text-align]="'center'"
+    >
+      <ng-container [ngTemplateOutlet]="cell" [ngTemplateOutletContext]="{ $implicit: data, column: column }"></ng-container>
+    </th>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnKeys"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnKeys"></tr>
+</table>
+
+
+<ng-template #empty>
+  <blockquote>
+    Nenhum registro encontrado
+  </blockquote>
+</ng-template>
+
+<ng-template #cell let-data let-column="column">
+  <ng-container [ngSwitch]="column.type">
+    <ng-container
+      *ngSwitchCase="'date'"
+      [ngTemplateOutlet]="dateCell"
+      [ngTemplateOutletContext]="{ $implicit: data, column: column }"
+    ></ng-container>
+    <ng-container
+      *ngSwitchCase="'timestamp'"
+      [ngTemplateOutlet]="timestampCell"
+      [ngTemplateOutletContext]="{ $implicit: data, column: column }"
+    ></ng-container>
+    <ng-container
+      *ngSwitchDefault
+      [ngTemplateOutlet]="defaultCell"
+      [ngTemplateOutletContext]="{ $implicit: data, column: column }"
+    ></ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #defaultCell let-data let-column="column">
+  {{ data | columnValue: column }}
+</ng-template>
+
+<ng-template #dateCell let-data let-column="column">
+  {{ data | columnValue: column | date: 'dd/MM/yyyy' }}
+</ng-template>
+
+<ng-template #timestampCell let-data let-column="column">
+  {{ data | columnValue: column | date: 'dd/MM/yyyy HH:mm:ss.SSS' }}
+</ng-template>
+
+<ng-template #timeCell let-data let-column="column">
+  {{ data | columnValue: column | duration }}
+</ng-template>

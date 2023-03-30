@@ -1,9 +1,9 @@
+import { CdkTableModule } from "@angular/cdk/table";
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, Type } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -33,17 +33,23 @@ import {
 } from '@angular/material/tooltip';
 
 import { ButtonModule } from 'primeng/button';
-import { InputTextAreaComponent, InputTextComponent } from './component';
+import { InputTextAreaComponent, InputTextComponent, TableComponent } from './component';
 import { InputSelectComponent } from './component/form/input/select/select.component';
+import { DurationPipe } from './pipes';
+import { TableColumnValuePipe } from './pipes/table-column-value.pipe';
 
 
 const components: Array<Type<any> | any[]> = [
   InputTextAreaComponent,
   InputTextComponent,
   InputSelectComponent,
+  TableComponent
 ];
 const directives: Array<Type<any> | any[]> = [];
-const pipes: Array<Type<any> | any[]> = [];
+const pipes: Array<Type<any> | any[]> = [
+  DurationPipe,
+  TableColumnValuePipe
+];
 
 const angularModules: Array<Type<any> | any[]> = [
   CommonModule,
@@ -52,6 +58,7 @@ const angularModules: Array<Type<any> | any[]> = [
   HttpClientModule,
   FormsModule,
   ReactiveFormsModule,
+  CdkTableModule
 ];
 
 const materialModules : Array<Type<any> | any[]> = [
