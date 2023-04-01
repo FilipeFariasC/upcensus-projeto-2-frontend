@@ -12,7 +12,7 @@ enum WriteMode {
 
 @Directive()
 export abstract class BaseAddComponent<F extends FormAdd<any,any>> implements OnInit {
-  
+
   protected mode: WriteMode = WriteMode.add;
   protected abstract _form: F;
   protected readonly activatedRoute: ActivatedRoute;
@@ -20,6 +20,7 @@ export abstract class BaseAddComponent<F extends FormAdd<any,any>> implements On
   protected readonly service: BaseCrudService<any,any>;
   protected readonly router: Router;
   protected id: number = -1;
+  protected _title: string = '';
 
   constructor(protected injector: Injector) {
     this.activatedRoute = injector.get(ActivatedRoute);
@@ -36,8 +37,10 @@ export abstract class BaseAddComponent<F extends FormAdd<any,any>> implements On
       this.mode = WriteMode.edit;
       this.id = this.activatedRoute.snapshot.params['id'];
       this.fetchModel();
+      this._title = this.editTitle;
     } else {
       this.mode = WriteMode.add;
+      this._title = this.registerTitle;
     }
   }
   get form(): F {
@@ -57,18 +60,22 @@ export abstract class BaseAddComponent<F extends FormAdd<any,any>> implements On
     return this.add ? ['..'] : ['../..'];
   }
 
-  abstract get title(): string;
+  abstract get registerTitle(): string;
+  abstract get editTitle(): string;
+  get title(): string {
+    return this._title;
+  }
 
   protected fetchData(): void { }
   save(): void {
     if (this._form.invalid) return ;
-    
+
     const model = this._form.toModel;
     const save = this.add ?
       this.service.register(model)
       :
       this.service.update(this.id, model);
-    
+
     save.pipe(
       finalize(()=>{
         this.cdr.detectChanges();

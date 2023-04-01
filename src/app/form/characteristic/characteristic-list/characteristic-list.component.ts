@@ -15,12 +15,8 @@ export class CharacteristicListComponent extends BaseListComponent<Characteristi
   readonly columns: Columns = [
     {
       key: "id",
-      name: "Identificador"
-    },
-    {
-      key: "creation_time",
-      name: "Data de cadastro",
-      type: "timestamp"
+      name: "Identificador",
+      sortable: true
     },
     {
       key: "attribute",
@@ -30,6 +26,17 @@ export class CharacteristicListComponent extends BaseListComponent<Characteristi
       key: "value",
       name: "Valor",
       type: "text"
+    },
+    {
+      key: "creation_time",
+      name: "Data de cadastro",
+      type: "timestamp"
+    },
+    {
+      key: "interactions",
+      name: "Operações",
+      type: 'interactive',
+      interactions: ['view', 'remove', 'edit']
     }
   ]
 }

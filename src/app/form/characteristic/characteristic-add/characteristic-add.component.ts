@@ -15,8 +15,11 @@ export class CharacteristicAddComponent extends BaseAddComponent<CharacteristicA
   protected override _form = new CharacteristicAddForm();
   private _attributeOptions: EnumOptions<Attribute> = [];
 
-  override get title(): string {
+  override get registerTitle(): string {
     return 'Cadastro de Caracteristica';
+  }
+  override get editTitle(): string {
+    return 'Edição de Caracteristica';
   }
 
   get attributeOptions(): EnumOptions<Attribute> {
@@ -30,6 +33,6 @@ export class CharacteristicAddComponent extends BaseAddComponent<CharacteristicA
         this._attributeOptions = response.data;
         this.cdr.detectChanges();
       })
-      
+
   }
 }

@@ -1,1 +1,35 @@
-<p>characteristic-view works!</p>
+<mat-card *ngIf="model">
+  <mat-card-header>
+    <mat-card-title>Característica: {{model.id}}</mat-card-title>
+    <mat-card-subtitle>{{model.description}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="h-fit">
+    <mat-list dense>
+        <mat-list-item>
+          ID: {{model.id}}
+        </mat-list-item>
+        <mat-list-item>
+          Atributo: {{model.attribute}}
+        </mat-list-item>
+        <mat-list-item>
+          Valor: {{model.value}}
+        </mat-list-item>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Descrição
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>{{model.description}}</p>
+        </mat-expansion-panel>
+    </mat-list>
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-actions>
+    <a mat-icon-button color="primary" aria-label="Editar" matTooltip="Editar" [routerLink]="editRoute()">
+      <mat-icon class="mat-18">
+        edit_note
+      </mat-icon>
+    </a>
+  </mat-card-actions>
+</mat-card>

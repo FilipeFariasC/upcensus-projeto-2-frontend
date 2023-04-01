@@ -6,8 +6,9 @@ export enum AppRoute {
   // GENERICOS
 
   REGISTER = 'cadastrar',
-  EDIT = ':id/editar',
   VIEW = ':id',
+  EDIT_SUFFIX = 'editar',
+  EDIT = `:id/editar`,
 
   // MODULOS
 

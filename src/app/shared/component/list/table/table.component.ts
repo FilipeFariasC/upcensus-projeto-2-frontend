@@ -1,14 +1,20 @@
-import { Component, ChangeDetectionStrategy, Input, AfterViewInit, ChangeDetectorRef, Injector, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import AppRoute from 'src/app/approutes.enum';
 
 
-export type ColumnType = 'text' | 'date' | 'timestamp' | 'time';
+export type Interactions = 'view' | 'edit' | 'remove';
+
+export type ColumnType = 'text' | 'date' | 'timestamp' | 'time' | 'interactive';
 
 export interface Column {
   name: string;
   key: string;
   tooltip?: string;
   type?: ColumnType;
+  sortable?: boolean;
+  interactions?: Array<Interactions>;
 };
 
 export type Columns = Array<Column> | Column[];
@@ -21,6 +27,12 @@ export type Columns = Array<Column> | Column[];
 export class TableComponent<Model> implements AfterViewInit{
 
   public readonly cdr: ChangeDetectorRef;
+
+
+  @ViewChild(MatSort, {static: false})
+  set sort(value: MatSort) {
+    this.dataSource.sort = value;
+  }
 
   constructor(private injector: Injector) {
     this.cdr = injector.get(ChangeDetectorRef);
@@ -35,6 +47,12 @@ export class TableComponent<Model> implements AfterViewInit{
   @Input() dataSource!: MatTableDataSource<Model>;
   @Input() columns: Columns = [];
 
+  viewRoute(id: number): string[] {
+    return [AppRoute.VIEW.replace(':id', id.toString())];
+  }
+  editRoute(id: number): string[] {
+    return [AppRoute.EDIT.replace(':id', id.toString())];
+  }
 
   get columnKeys(): string[] {
     return this.columns?.map(column => column.key);

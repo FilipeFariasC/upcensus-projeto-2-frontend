@@ -1,10 +1,26 @@
 
-<table class="w-full" *ngIf="dataSource.data.length > 0 else empty" mat-table [dataSource]="dataSource">
+<table
+  class="w-full"
+  *ngIf="dataSource.data.length > 0 else empty"
+  mat-table [dataSource]="dataSource"
+  matSort>
 
   <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
-    <th *matHeaderCellDef mat-header-cell [style.text-align]="'center'">
-      {{ column.name }}
-    </th>
+    <ng-container *ngIf="column.sortable else notSortable">
+      <ng-container [ngTemplateOutlet]="sortable"></ng-container>
+    </ng-container>
+    <ng-template #sortable>
+      <th *matHeaderCellDef mat-header-cell [style.text-align]="'center'"
+          [mat-sort-header]="column.key">
+          {{ column.name }}
+        </th>
+    </ng-template>
+    <ng-template #notSortable>
+      <th *matHeaderCellDef mat-header-cell [style.text-align]="'center'">
+          {{ column.name }}
+        </th>
+    </ng-template>
+
     <th
       mat-cell
       *matCellDef="let data"
@@ -17,6 +33,7 @@
   <tr mat-header-row *matHeaderRowDef="columnKeys"></tr>
   <tr mat-row *matRowDef="let row; columns: columnKeys"></tr>
 </table>
+
 
 
 <ng-template #empty>
@@ -35,6 +52,11 @@
     <ng-container
       *ngSwitchCase="'timestamp'"
       [ngTemplateOutlet]="timestampCell"
+      [ngTemplateOutletContext]="{ $implicit: data, column: column }"
+    ></ng-container>
+    <ng-container
+      *ngSwitchCase="'interactive'"
+      [ngTemplateOutlet]="interactiveCell"
       [ngTemplateOutletContext]="{ $implicit: data, column: column }"
     ></ng-container>
     <ng-container
@@ -59,4 +81,25 @@
 
 <ng-template #timeCell let-data let-column="column">
   {{ data | columnValue: column | duration }}
+</ng-template>
+
+<ng-template #interactiveCell let-data let-column="column">
+  <ng-container *ngFor="let interaction of column.interactions">
+    <ng-container [ngSwitch]="interaction">
+      <a *ngSwitchCase="'view'" mat-icon-button color="primary" aria-label="Detalhes" matTooltip="Detalhes" [routerLink]="viewRoute(data.id)">
+        <mat-icon class="mat-18">preview</mat-icon>
+      </a>
+      <a *ngSwitchCase="'edit'" mat-icon-button color="primary" aria-label="Editar" matTooltip="Editar" [routerLink]="editRoute(data.id)">
+        <mat-icon class="mat-18">
+          edit_note
+        </mat-icon>
+      </a>
+      <button *ngSwitchCase="'delete'" mat-icon-button color="primary" aria-label="Excluir" matTooltip="Excluir" [routerLink]="editRoute(data.id)">
+        <mat-icon class="mat-18">
+          edit_note
+        </mat-icon>
+      </button>
+    </ng-container>
+
+  </ng-container>
 </ng-template>
