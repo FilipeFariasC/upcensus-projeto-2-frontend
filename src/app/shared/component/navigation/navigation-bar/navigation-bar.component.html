@@ -1,0 +1,20 @@
+<mat-drawer-container fullscreen [hasBackdrop]="configuration.hasBackdrop">
+  <mat-drawer #drawer [mode]="configuration.mode">
+    <ng-container *ngFor="let item of items">
+      <ng-container *ngIf="hasChildren(item) else single">
+        <app-navigation-list [parent]="item" [items]="getChildren(item)"></app-navigation-list>
+      </ng-container>
+      <ng-template #single>
+        <app-navigation-item [item]="item"></app-navigation-item>
+      </ng-template>
+    </ng-container>
+  </mat-drawer>
+  <mat-drawer-content>
+    <button mat-button (click)="drawer.toggle()">
+      <mat-icon class="m-0" class="icon-18">
+        menu
+      </mat-icon>
+    </button>
+    <ng-content></ng-content>
+  </mat-drawer-content>
+</mat-drawer-container>

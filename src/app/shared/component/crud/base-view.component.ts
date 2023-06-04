@@ -24,7 +24,7 @@ export abstract class BaseViewComponent<M> implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(()=>{
-      this.fetchModel()
+      this.fetchModel();
     });
   }
 
@@ -33,6 +33,10 @@ export abstract class BaseViewComponent<M> implements OnInit {
   }
   get model(): M {
     return this._model;
+  }
+
+  get editRoute(): string[] {
+    return [AppRoute.EDIT_SUFFIX]
   }
 
   private fetchModel(): void {
@@ -44,7 +48,11 @@ export abstract class BaseViewComponent<M> implements OnInit {
       )
       .subscribe(response=>{
         this._model = response.data;
+        this.fetchData();
       })
+  }
+  protected fetchData(): void {
+
   }
 
   private navigateBackToList(): void {

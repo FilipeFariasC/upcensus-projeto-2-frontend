@@ -70,11 +70,11 @@ export abstract class BaseAddComponent<F extends FormAdd<any,any>> implements On
   save(): void {
     if (this._form.invalid) return ;
 
-    const model = this._form.toModel;
+    const request = this._form.toRequest;
     const save = this.add ?
-      this.service.register(model)
+      this.service.register(request)
       :
-      this.service.update(this.id, model);
+      this.service.update(this.id, request);
 
     save.pipe(
       finalize(()=>{
@@ -93,7 +93,7 @@ export abstract class BaseAddComponent<F extends FormAdd<any,any>> implements On
         })
       )
       .subscribe(response=>{
-        this._form.fromModel(response.data);
+        this._form.fromModel = response.data;
       })
   }
 

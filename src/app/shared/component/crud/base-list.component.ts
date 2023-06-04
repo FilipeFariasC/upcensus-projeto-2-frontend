@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { BaseCrudService } from '../../service/base.service';
 import { TableComponent } from '../list';
+import AppRoute from 'src/app/approutes.enum';
 
 export default interface UrlParams {
   [key: string]: any;
@@ -41,6 +42,7 @@ export abstract class BaseListComponent<Model> implements OnInit, AfterViewInit 
   }
 
   ngOnInit(): void {
+    this.fetchData();
     this.service.findAll()
       .pipe(
         finalize(()=>{
@@ -50,7 +52,6 @@ export abstract class BaseListComponent<Model> implements OnInit, AfterViewInit 
       )
       .subscribe((response)=>{
         const data = response.data;
-        console.log(data);
         this._dataSource.data = data.content;
         this._totalElements = data.totalElements;
       });
@@ -58,6 +59,13 @@ export abstract class BaseListComponent<Model> implements OnInit, AfterViewInit 
   ngAfterViewInit(): void {
   }
 
+  get registerRoute(): string[] {
+    return [AppRoute.REGISTER];
+  }
+  protected fetchEager(): void { }
+
   protected fetchData(): void { }
+
+  protected fetchLazy(): void { }
 
 }

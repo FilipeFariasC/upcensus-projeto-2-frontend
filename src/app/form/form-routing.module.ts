@@ -11,6 +11,14 @@ const routes: Routes = [
       {
         path: AppRoute.CHARACTERISTIC,
         loadChildren: () => import('./characteristic/characteristic.module').then(module => module.CharacteristicModule)
+      },
+      {
+        path: AppRoute.FIELD,
+        loadChildren: () => import('./field/field.module').then(module => module.FieldModule)
+      },
+      {
+        path: AppRoute.CONFIGURATION,
+        loadChildren: () => import('./configuration/configuration.module').then(module => module.ConfigurationModule)
       }
     ]
   }

@@ -1,0 +1,53 @@
+<mat-card *ngIf="model">
+  <mat-card-header>
+    <mat-card-title>Módulo: {{model.code}}</mat-card-title>
+    <mat-card-subtitle>{{model.name}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="h-fit">
+    <mat-list dense>
+        <mat-list-item>
+          ID: {{model.id}}
+        </mat-list-item>
+        <mat-list-item>
+          Nome: {{model.code}}
+        </mat-list-item>
+        <mat-list-item *ngIf="model.tags && model.tags.length > 0">
+          Tags:
+          <span *ngFor="let tag of model.tags">
+            {{tag}}
+          </span>
+        </mat-list-item>
+        <mat-list-item *ngIf="model.configuration">
+          Configuração: {{model.configuration.code}}
+        </mat-list-item>
+        <mat-list-item *ngIf="model.output_template">
+          Modelo de Saída: {{model.output_template.code}}
+        </mat-list-item>
+        <mat-expansion-panel *ngIf="model.input_templates && model.input_templates.length > 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Modelos de Entrada
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list dense>
+            <mat-list-item *ngFor="let entrada of model.input_templates">
+              Modelo: {{entrada.code}} - {{entrada.type}}
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+    </mat-list>
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-actions>
+    <a mat-icon-button color="primary" aria-label="Editar" matTooltip="Editar" [routerLink]="editRoute">
+      <mat-icon class="mat-18">
+        edit_note
+      </mat-icon>
+    </a>
+    <a *ngIf="model.hasAnswers" mat-icon-button color="primary" aria-label="Listar Registros" matTooltip="Listar Registros" [routerLink]="answerRoute">
+      <mat-icon class="mat-18">
+        article
+      </mat-icon>
+    </a>
+  </mat-card-actions>
+</mat-card>

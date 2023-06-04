@@ -9,15 +9,19 @@ export enum Attribute {
 	MAX_VALUE,
 	PATTERN
 }
-
-export interface CharacteristicResponse extends DomainModel {
+interface CharacteristicResponse extends DomainModel {
   attribute: Attribute;
   value: string;
   description: string;
 }
 
-export interface CharacteristicRequest {
+interface CharacteristicRequest {
   attribute: Attribute;
   value: string;
   description: string;
+}
+
+export {
+  CharacteristicResponse,
+  CharacteristicRequest
 }
