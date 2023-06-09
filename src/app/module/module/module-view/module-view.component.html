@@ -44,10 +44,26 @@
         edit_note
       </mat-icon>
     </a>
-    <a *ngIf="model.hasAnswers" mat-icon-button color="primary" aria-label="Listar Registros" matTooltip="Listar Registros" [routerLink]="answerRoute">
+    <a *ngIf="model.has_answers" mat-icon-button color="primary" aria-label="Listar Registros" matTooltip="Listar Registros" [routerLink]="answerRoute">
       <mat-icon class="mat-18">
         article
       </mat-icon>
     </a>
+
+
+    <button
+      mat-icon-button
+      type="menu"
+      color="primary"
+      id="upload-file"
+      aria-label="Upload arquivo"
+      matTooltip="Upload arquivo"
+      (click)="openModal()"
+    >
+        <mat-icon class="mat-18">
+          attach_file
+        </mat-icon>
+    </button>
+
   </mat-card-actions>
 </mat-card>

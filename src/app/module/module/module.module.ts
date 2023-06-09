@@ -8,6 +8,7 @@ import { ModuleListComponent } from './module-list/module-list.component';
 import { ModuleViewComponent } from './module-view/module-view.component';
 import { ModuleComponent } from './module.component';
 import { ModuleService } from './shared/module.service';
+import { ModuleUploadFileDialogComponent } from './module-upload-file-dialog/module-upload-file-dialog.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ModuleService } from './shared/module.service';
     ModuleComponent,
     ModuleAddComponent,
     ModuleListComponent,
-    ModuleViewComponent
+    ModuleViewComponent,
+    ModuleUploadFileDialogComponent
   ],
   imports: [
     SharedModule,

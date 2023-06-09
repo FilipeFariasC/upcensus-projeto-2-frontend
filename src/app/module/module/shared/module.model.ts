@@ -1,6 +1,6 @@
 import { DomainModel } from '../../../shared/interfaces/response';
 import { ConfigurationResponse } from '../../configuration/shared/configuration.model';
-import { InputTemplateResponse } from '../../template/input/shared/input-template.model';
+import { FileType, FileTypeResponse, InputTemplateResponse } from '../../template/input/shared/input-template.model';
 import { OutputTemplateResponse } from '../../template/output/shared/output-template.model';
 
 export interface Record {
@@ -18,7 +18,8 @@ interface ModuleResponse extends DomainModel {
   configuration: ConfigurationResponse;
   input_templates: InputTemplateResponse[];
   output_template: OutputTemplateResponse;
-  hasAnswers: boolean;
+  has_answers: boolean;
+  file_input_template_types: FileTypeResponse[];
 }
 
 interface ModuleRequest {
@@ -30,7 +31,16 @@ interface ModuleRequest {
   output_template?: string;
 }
 
+interface FileUploadRequest {
+  file: File,
+  fileType: FileType | string,
+  ignoreHeaderRow?: boolean
+}
+
+
 export {
   ModuleResponse,
-  ModuleRequest
+  ModuleRequest,
+  FileUploadRequest
 }
+

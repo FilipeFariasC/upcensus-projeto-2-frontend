@@ -13,6 +13,16 @@ export enum Type {
   yaml = "YAML",
 }
 
+export enum FileType {
+  csv = "CSV",
+  json = "JSON",
+  ods = "ODS",
+  text = "TEXT",
+  xls = "XLS",
+  xlsx = "XLSX",
+  yaml = "YAML",
+}
+
 export interface Mapping {
   [key: string]: string
 }
@@ -29,4 +39,12 @@ export interface InputTemplateRequest {
   name: string;
   type: Type;
   mappings: Mapping;
+}
+
+export interface FileTypeResponse {
+  file_type: FileType;
+  name: string;
+  mime_type: string;
+  extension: string;
+  tabular_data: boolean;
 }

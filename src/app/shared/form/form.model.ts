@@ -7,6 +7,9 @@ export interface ModelToRequest<Response> {
 export interface FormToRequest<Request> {
   get toRequest(): Request;
 }
+export interface FormToFormData<FormDataType extends FormData> {
+  get formData(): FormDataType;
+}
 
 export abstract class FormAdd<Request, Response> extends FormGroup implements ModelToRequest<Response>,FormToRequest<Request> {
   getControl(key: string): FormControl {

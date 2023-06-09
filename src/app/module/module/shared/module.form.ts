@@ -1,7 +1,8 @@
-import { FormControl, Validators } from '@angular/forms';
-import { FormAdd } from 'src/app/shared/form/form.model';
-import { ModuleRequest, ModuleResponse } from './module.model';
-
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormAdd, FormToFormData } from 'src/app/shared/form/form.model';
+import { FormToRequest } from '../../../shared/form/form.model';
+import { FileUploadRequest, ModuleRequest, ModuleResponse } from './module.model';
+import { FileType } from '../../template/input/shared/input-template.model';
 export class ModuleAddForm extends FormAdd<ModuleRequest, ModuleResponse> {
 
   constructor() {
@@ -54,3 +55,44 @@ export class ModuleAddForm extends FormAdd<ModuleRequest, ModuleResponse> {
 
 }
 
+
+export class ModuleFileUploadForm extends FormGroup implements FormToFormData<FileUploadFormData> {
+
+  constructor(){
+    super({
+      file: new FormControl([], Validators.required),
+      fileType: new FormControl('', Validators.required),
+      ignoreHeaderRow: new FormControl(false)
+    });
+  }
+
+  get file(): FormControl {
+    return this.get('file') as FormControl;
+  }
+
+  get fileType(): FormControl {
+    return this.get('fileType') as FormControl;
+  }
+
+  get ignoreHeaderRow(): FormControl {
+    return this.get('ignoreHeaderRow') as FormControl;
+  }
+
+  get formData(): FileUploadFormData {
+    return new FileUploadFormData(
+      this.file.value as File,
+      this.fileType.value,
+      this.ignoreHeaderRow.value
+    );
+  }
+
+}
+
+export class FileUploadFormData extends FormData {
+  constructor(file: File, fileType: FileType | string, ignoreHeaderRow?: boolean) {
+    super();
+    this.append('file', file);
+    this.append('fileType', String(fileType));
+    this.append('ignoreHeaderRow', String(ignoreHeaderRow));
+  }
+}
