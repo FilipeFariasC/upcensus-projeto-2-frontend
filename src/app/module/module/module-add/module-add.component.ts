@@ -6,6 +6,7 @@ import { OutputTemplateService } from '../../template/output/shared/output-templ
 import { ModuleAddForm } from '../shared/module.form';
 import { ConfigurationService } from '../../configuration/shared/configuration.service';
 import { finalize, forkJoin } from 'rxjs';
+import { MetadataService } from '../metadata/shared/metadata.service';
 
 @Component({
   selector: 'app-module-module-add',
@@ -18,17 +19,20 @@ export class ModuleAddComponent extends BaseAddComponent<ModuleAddForm> {
   private _inputTemplatesOptions: EnumOptions<string> = [];
   private _outputTemplateOptions: EnumOptions<string> = [];
   private _configurationOptions: EnumOptions<string> = [];
+  private _metadataOptions: EnumOptions<string> = [];
 
 
   private _configurationService: ConfigurationService;
   private _inputTemplateService: InputTemplateService;
   private _outputTemplateService: OutputTemplateService;
+  private _metadataService: MetadataService;
 
   constructor(injector: Injector) {
     super(injector);
     this._configurationService = injector.get(ConfigurationService);
     this._inputTemplateService = injector.get(InputTemplateService);
     this._outputTemplateService = injector.get(OutputTemplateService);
+    this._metadataService = injector.get(MetadataService);
   }
 
   override get registerTitle(): string {
@@ -50,13 +54,18 @@ export class ModuleAddComponent extends BaseAddComponent<ModuleAddForm> {
     return this._configurationOptions;
   }
 
+  get metadataOptions(): EnumOptions<string> {
+    return this._metadataOptions;
+  }
+
 
   protected override fetchData(): void {
 
     forkJoin({
       configuration: this._configurationService.getAll(),
       inputTemplates: this._inputTemplateService.getAll(),
-      outputTemplates: this._outputTemplateService.getAll()
+      outputTemplates: this._outputTemplateService.getAll(),
+      metadata: this._metadataService.getAll()
     }).pipe(
       finalize(()=>{
         this.cdr.detectChanges();
@@ -64,17 +73,24 @@ export class ModuleAddComponent extends BaseAddComponent<ModuleAddForm> {
     ).subscribe(response=>{
       this._configurationOptions = response.configuration.data.map(n=>({
         value: n.code,
-        label: n.code
+        label: n.name
       }));
       this._inputTemplatesOptions = response.inputTemplates.data.map(n=>({
         value: n.code,
-        label: n.code
+        label: n.name
       }));
       this._outputTemplateOptions = response.outputTemplates.data.map(n=>({
         value: n.code,
-        label: n.code
+        label: n.name
       }));
+      this._metadataOptions = response.metadata.data.map(n => ({
+        value: n.code,
+        label: n.name
+      }))
     });
   }
 
+  hasElements(collection: any[]) {
+    return (collection.length ?? 0) > 0;
+  }
 }

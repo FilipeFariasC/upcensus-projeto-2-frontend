@@ -5,6 +5,7 @@ import { ModuleResponse } from "../shared/module.model";
 import { ModuleFileUploadForm } from "../shared/module.form";
 import { BooleanOptions, EnumOption, EnumOptions, booleanEnumOptions } from '../../../shared/interfaces/enum-option';
 import { ModuleService } from '../shared/module.service';
+import { share, shareReplay } from 'rxjs';
 
 
 

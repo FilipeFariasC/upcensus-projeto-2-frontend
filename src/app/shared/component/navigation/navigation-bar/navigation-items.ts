@@ -36,6 +36,11 @@ export const navigationItems: NavigationItems = [
         route: AppRoute.MODULE_ABSOLUTE
       },
       {
+        label: "Metadados",
+        icon: "list",
+        route: AppRoute.METADATA_ABSOLUTE
+      },
+      {
         label: "Modelo",
         icon: "list",
         route: AppRoute.TEMPLATE_ABSOLUTE,

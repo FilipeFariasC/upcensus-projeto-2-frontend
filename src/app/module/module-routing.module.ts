@@ -9,7 +9,7 @@ const routes: Routes = [
     component: ModuleComponent,
     children: [
       {
-        path: AppRoute.MODULE,
+        path: AppRoute.MODULES,
         loadChildren: () => import('./module/module.module').then(module => module.ModuleModule)
       },
       {

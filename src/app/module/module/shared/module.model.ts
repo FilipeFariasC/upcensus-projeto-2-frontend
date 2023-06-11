@@ -2,6 +2,7 @@ import { DomainModel } from '../../../shared/interfaces/response';
 import { ConfigurationResponse } from '../../configuration/shared/configuration.model';
 import { FileType, FileTypeResponse, InputTemplateResponse } from '../../template/input/shared/input-template.model';
 import { OutputTemplateResponse } from '../../template/output/shared/output-template.model';
+import { MetadataResponse } from '../metadata/shared/metadata.model';
 
 export interface Record {
   [key: string]: string;
@@ -20,6 +21,7 @@ interface ModuleResponse extends DomainModel {
   output_template: OutputTemplateResponse;
   has_answers: boolean;
   file_input_template_types: FileTypeResponse[];
+  metadata: MetadataResponse[];
 }
 
 interface ModuleRequest {
@@ -29,6 +31,7 @@ interface ModuleRequest {
   configuration?: string;
   input_templates?: string[];
   output_template?: string;
+  metadata?: string[];
 }
 
 interface FileUploadRequest {

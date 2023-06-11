@@ -1,8 +1,7 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormAdd, FormToFormData } from 'src/app/shared/form/form.model';
-import { FormToRequest } from '../../../shared/form/form.model';
-import { FileUploadRequest, ModuleRequest, ModuleResponse } from './module.model';
 import { FileType } from '../../template/input/shared/input-template.model';
+import { ModuleRequest, ModuleResponse } from './module.model';
 export class ModuleAddForm extends FormAdd<ModuleRequest, ModuleResponse> {
 
   constructor() {
@@ -13,6 +12,7 @@ export class ModuleAddForm extends FormAdd<ModuleRequest, ModuleResponse> {
       configuration: new FormControl([]),
       input_templates: new FormControl([]),
       output_template: new FormControl(''),
+      metadata: new FormControl([]),
     });
   }
 
@@ -34,13 +34,17 @@ export class ModuleAddForm extends FormAdd<ModuleRequest, ModuleResponse> {
   get outputTemplate(): FormControl {
     return this.getControl('output_template');
   }
+  get metadata(): FormControl {
+    return this.getControl('metadata');
+  }
 
   set fromModel(model: ModuleResponse) {
     this.patchValue({
       ...model,
       configuration: model.configuration.code,
       input_templates: model.input_templates.map(n=>n.code),
-      output_template: model.output_template.code
+      output_template: model.output_template.code,
+      metadata: model.metadata.map(n=>n.code)
     });
   }
   get toRequest(): ModuleRequest {
@@ -49,7 +53,8 @@ export class ModuleAddForm extends FormAdd<ModuleRequest, ModuleResponse> {
       name: this.name.value,
       tags: this.tags.value,
       input_templates: this.inputTemplates.value,
-      output_template: this.outputTemplate.value
+      output_template: this.outputTemplate.value,
+      metadata: this.metadata.value
     } as ModuleRequest
   }
 

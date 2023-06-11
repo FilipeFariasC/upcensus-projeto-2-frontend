@@ -25,7 +25,10 @@
               </div>
             </div>
             <div fxLayout="row wrap" fxLayoutGap="10px grid">
-              <div class="w-full" fxFlex="100">
+              <div *ngIf="hasElements(metadataOptions)" class="w-full" fxFlex="50">
+                <app-input-select id="metadata" label="Metadados" [control]="form.metadata" [multiple]="true" [options]="metadataOptions"></app-input-select>
+              </div>
+              <div class="w-full" fxFlex="50">
                 <app-input-text id="tags" label="Tags" [control]="form.tags"></app-input-text>
               </div>
             </div>

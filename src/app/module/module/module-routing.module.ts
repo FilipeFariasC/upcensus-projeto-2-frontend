@@ -20,6 +20,10 @@ const routes: Routes = [
         component: ModuleAddComponent
       },
       {
+        path: AppRoute.METADATA,
+        loadChildren: () => import('./metadata/metadata.module').then(module => module.MetadataModule)
+      },
+      {
         path: AppRoute.VIEW,
         component: ModuleViewComponent
       },

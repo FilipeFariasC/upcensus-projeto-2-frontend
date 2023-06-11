@@ -11,12 +11,6 @@
         <mat-list-item>
           Nome: {{model.code}}
         </mat-list-item>
-        <mat-list-item *ngIf="model.tags && model.tags.length > 0">
-          Tags:
-          <span *ngFor="let tag of model.tags">
-            {{tag}}
-          </span>
-        </mat-list-item>
         <mat-list-item *ngIf="model.configuration">
           Configuração: {{model.configuration.code}}
         </mat-list-item>
@@ -32,6 +26,30 @@
           <mat-list dense>
             <mat-list-item *ngFor="let entrada of model.input_templates">
               Modelo: {{entrada.code}} - {{entrada.type}}
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="model.metadata.length ?? 0 > 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Metadados
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list dense>
+            <mat-list-item *ngFor="let metadata of model.metadata">
+              {{metadata.code}} -> {{metadata.value}}
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="model.tags.length ?? 0 > 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Tags
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list dense>
+            <mat-list-item *ngFor="let tag of model.tags">
+              {{tag}}
             </mat-list-item>
           </mat-list>
         </mat-expansion-panel>
@@ -52,6 +70,7 @@
 
 
     <button
+      *ngIf="model.has_answers"
       mat-icon-button
       type="menu"
       color="primary"

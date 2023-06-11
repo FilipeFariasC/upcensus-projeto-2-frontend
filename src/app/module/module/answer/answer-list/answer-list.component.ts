@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { BaseViewComponent } from 'src/app/shared/component';
 import { Columns } from 'src/app/shared/component/list/table/table.component';
 import { AnswerResponse, ModuleResponse } from '../../shared/module.model';
 import { ModuleService } from '../../shared/module.service';
 import { finalize } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-answer-list',
@@ -28,6 +29,9 @@ export class AnswerListComponent extends BaseViewComponent<ModuleResponse> {
       .getAnswers(this.model.id)
       .pipe(finalize(()=>this.cdr.detectChanges()))
       .subscribe(response=>{
+        if (!response.data) {
+          this.router.navigate(['../'], { relativeTo: this.activatedRoute.parent});
+        }
         this._answers = response.data;
       })
   }

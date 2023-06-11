@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, share, shareReplay, tap } from 'rxjs';
 import { DomainService } from "src/app/shared/service/domain.service";
 import { environment } from '../../../../environments/environment';
 import { AnswerResponse, FileUploadRequest, ModuleRequest, ModuleResponse } from './module.model';
@@ -20,6 +20,9 @@ export class ModuleService extends DomainService<ModuleRequest, ModuleResponse> 
 
 
   uploadFile(idModule: number, fileUploadFormData: FileUploadFormData): Observable<Response<void>> {
-    return this.httpClient.post<Response<void>>(this.buildUrl(`${idModule}`, "upload"), fileUploadFormData);
+    return this.httpClient.post<Response<void>>(this.buildUrl(`${idModule}`, "upload"), fileUploadFormData)
+      .pipe(
+        shareReplay(1)
+      );
   }
 }

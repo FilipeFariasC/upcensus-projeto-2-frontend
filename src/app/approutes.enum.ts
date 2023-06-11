@@ -21,14 +21,18 @@ export enum AppRoute {
   CONFIGURATION_ABSOLUTE = 'coleta/configuracao',
 
   MODULE = 'modulo',
-  MODULE_ABSOLUTE = 'modulo/modulo',
-  TEMPLATE = 'modelo',
-  TEMPLATE_ABSOLUTE = 'modulo/modelo',
+  MODULES = 'modulos',
+  MODULE_ABSOLUTE = 'modulo/modulos',
+  TEMPLATE = 'modelos',
+  TEMPLATE_ABSOLUTE = 'modulo/modelos',
   INPUT = "entrada",
-  INPUT_TEMPLATE_ABSOLUTE = 'modulo/modelo/entrada',
+  INPUT_TEMPLATE_ABSOLUTE = 'modulo/modelos/entrada',
   OUTPUT = "saida",
-  OUTPUT_TEMPLATE_ABSOLUTE = 'modulo/modelo/saida',
+  OUTPUT_TEMPLATE_ABSOLUTE = 'modulo/modelos/saida',
   ANSWERS = ':id/registros',
+  METADATA = 'metadados',
+  METADATA_ABSOLUTE = 'modulo/modulos/metadados',
+  MODULE_METADATA = ':id/metadados',
   ANSWERS_SUFFIX = 'registros'
 }
 
