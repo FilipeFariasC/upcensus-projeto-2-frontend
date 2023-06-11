@@ -70,7 +70,6 @@
 
 
     <button
-      *ngIf="model.has_answers"
       mat-icon-button
       type="menu"
       color="primary"
@@ -81,6 +80,21 @@
     >
         <mat-icon class="mat-18">
           attach_file
+        </mat-icon>
+    </button>
+
+    <button
+      *ngIf="model.has_answers"
+      mat-icon-button
+      type="menu"
+      color="primary"
+      id="migrate-module"
+      aria-label="Migrar módulo"
+      matTooltip="Migrar módulo"
+      (click)="migrate()"
+    >
+        <mat-icon class="mat-18">
+          description
         </mat-icon>
     </button>
 

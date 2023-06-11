@@ -25,4 +25,8 @@ export class ModuleService extends DomainService<ModuleRequest, ModuleResponse> 
         shareReplay(1)
       );
   }
+
+  migrate(idModule: number): Observable<Response<void>> {
+    return this.httpClient.post<Response<void>>(this.buildUrl(`${idModule}`, "migrate"), null);
+  }
 }

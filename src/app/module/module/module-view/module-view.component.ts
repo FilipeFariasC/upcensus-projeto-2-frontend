@@ -4,6 +4,7 @@ import AppRoute from '../../../approutes.enum';
 import { ModuleResponse } from '../shared/module.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ModuleUploadFileDialogComponent } from '../module-upload-file-dialog/module-upload-file-dialog.component';
+import { ModuleService } from '../shared/module.service';
 
 @Component({
   selector: 'app-module-module-view',
@@ -39,5 +40,11 @@ export class ModuleViewComponent extends BaseViewComponent<ModuleResponse> {
     });
     dialogRef.afterClosed()
       .subscribe(()=>this.cdr.detectChanges());
+  }
+
+  migrate(): void {
+    (this.service as ModuleService)
+      .migrate(this.id)
+      .subscribe(response => alert('migrado com sucesso'));
   }
 }
