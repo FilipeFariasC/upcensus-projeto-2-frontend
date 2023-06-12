@@ -8,12 +8,18 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { SharedModule } from './shared/shared.module';
-
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
+import { authInterceptorProviders } from './auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    HomePageComponent
+    HomePageComponent,
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +33,7 @@ import { SharedModule } from './shared/shared.module';
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
