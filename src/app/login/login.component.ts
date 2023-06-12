@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { UserService } from '../user.service';
-import { TokenStorageService } from '../token-storage.service';
+import { AuthService } from '../shared/service/security/auth.service';
+import { UserService } from '../shared/service/user/user.service';
+import { TokenStorageService } from '../shared/service/token/token-storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { AppConstants } from '../app.constants';
 
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   googleURL = AppConstants.GOOGLE_AUTH_URL;
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private userService: UserService) {}
- 
+
   ngOnInit(): void {
     const token: string = this.route.snapshot.queryParamMap.get('token') as string;
     const error: string = this.route.snapshot.queryParamMap.get('error') as string;
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = true;
     }
   }
- 
+
   onSubmit(): void {
     this.authService.login(this.form).subscribe(
       data => {
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
       }
     );
   }
- 
+
   login(user: any): void {
     this.tokenStorage.saveUser(user);
     this.isLoginFailed = false;

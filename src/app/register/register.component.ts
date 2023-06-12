@@ -1,5 +1,5 @@
 import { Component, OnInit  } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../shared/service/security/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -11,12 +11,12 @@ export class RegisterComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
- 
+
   constructor(private authService: AuthService) { }
- 
+
   ngOnInit(): void {
   }
- 
+
   onSubmit(): void {
     this.authService.register(this.form).subscribe(
       data => {

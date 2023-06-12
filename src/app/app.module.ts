@@ -11,7 +11,7 @@ import { SharedModule } from './shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
-import { authInterceptorProviders } from './auth.interceptor';
+import { authInterceptorProviders } from './shared/interceptor/auth/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,

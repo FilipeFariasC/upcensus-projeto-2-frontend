@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDrawerMode } from '@angular/material/sidenav';
-import { UserService } from '../user.service';
+import { UserService } from '../shared/service/user/user.service';
 
 @Component({
   selector: 'app-home-page',
@@ -13,9 +13,9 @@ export class HomePageComponent {
 
 
   content!: string;
- 
+
   constructor(private userService: UserService) { }
- 
+
   ngOnInit(): void {
     this.userService.getPublicContent().subscribe(
       data => {
