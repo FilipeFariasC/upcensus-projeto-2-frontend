@@ -30,6 +30,7 @@ export enum AppRoute {
   OUTPUT = "saida",
   OUTPUT_TEMPLATE_ABSOLUTE = 'modulo/modelos/saida',
   ANSWERS = ':id/registros',
+  ANSWER_ABSOLUTE = 'modulo/modulos/registro',
   METADATA = 'metadados',
   METADATA_ABSOLUTE = 'modulo/modulos/metadados',
   MODULE_METADATA = ':id/metadados',

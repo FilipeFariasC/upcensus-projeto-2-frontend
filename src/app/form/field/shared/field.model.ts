@@ -21,6 +21,11 @@ export interface FieldResponse extends DomainModel {
   characteristics: CharacteristicResponse[];
 }
 
+export interface FieldMinResponse extends DomainModel {
+  code: string;
+  name: string;
+}
+
 export interface FieldRequest {
   code: string;
   name: string;
