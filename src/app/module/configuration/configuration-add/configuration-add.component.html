@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card>
+      <mat-card-header>
+          <mat-card-title>{{title}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div fxLayout="row wrap" fxLayoutGap="10px grid">
+              <div fxFlex="50">
+                <app-input-text id="code" label="Código" [control]="form.code"></app-input-text>
+              </div>
+              <div fxFlex="50">
+                <app-input-text id="name" label="Nome" [control]="form.name"></app-input-text>
+              </div>
+            </div>
+            <div fxLayout="row wrap" fxLayoutGap="10px grid">
+              <div fxFlex="50">
+                <app-input-select id="fields" label="Campos" [control]="form.fields" [multiple]="true" [options]="fieldOptions"></app-input-select>
+              </div>
+              <div fxFlex="50">
+                <app-input-select id="identifierField" label="Campo Identificador" [control]="form.identifierField" [options]="identifierFieldOptions"></app-input-select>
+              </div>
+            </div>
+            <button type mat-button class="outline outline-2 outline-lime-400" [disabled]="form.disabled || form.invalid || form.untouched">Salvar</button>
+          </form>
+      </mat-card-content>
+  </mat-card>
+</mat-card>

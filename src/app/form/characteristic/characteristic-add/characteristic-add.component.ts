@@ -32,7 +32,6 @@ export class CharacteristicAddComponent extends BaseAddComponent<CharacteristicA
       .subscribe(response=>{
         this._attributeOptions = response.data;
         this.cdr.detectChanges();
-      })
-
+      });
   }
 }

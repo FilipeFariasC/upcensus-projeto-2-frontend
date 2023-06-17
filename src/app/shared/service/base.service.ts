@@ -24,6 +24,10 @@ export abstract class BaseCrudService<Request, Model> {
     return this._baseUrl;
   }
 
+  getAll (): Observable<Response<Model[]>> {
+    return this.httpClient.get<Response<Model[]>>(this.buildUrl("all"));
+  }
+
   findAll (): Observable<Response<Page<Model>>> {
     return this.httpClient.get<Response<Page<Model>>>(this.baseUrl);
   }

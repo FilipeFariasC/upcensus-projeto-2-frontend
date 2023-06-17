@@ -1,6 +1,6 @@
 import { FormControl, Validators } from '@angular/forms';
 import { FormAdd } from 'src/app/shared/form/form.model';
-import { CharacteristicRequest, CharacteristicResponse } from './characteristic.model';
+import { CharacteristicResponse, CharacteristicRequest } from './characteristic.model';
 
 export class CharacteristicAddForm extends FormAdd<CharacteristicRequest, CharacteristicResponse> {
 
@@ -22,18 +22,16 @@ export class CharacteristicAddForm extends FormAdd<CharacteristicRequest, Charac
     return this.getControl('description');
   }
 
-  fromModel(model: CharacteristicResponse): void {
+  set fromModel(model: CharacteristicResponse) {
     this.patchValue(model);
   }
-  get toModel(): CharacteristicResponse {
+  get toRequest(): CharacteristicRequest {
     return {
       attribute: this.attribute.value,
       value: this.valueControl.value,
       description: this.description.value
-    } as CharacteristicResponse
+    } as CharacteristicRequest
   }
 
 }
-
-export { CharacteristicRequest };
 

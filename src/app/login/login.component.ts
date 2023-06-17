@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../shared/service/security/auth.service';
+import { AuthService } from '../core/auth/security/auth.service';
 import { UserService } from '../shared/service/user/user.service';
 import { TokenStorageService } from '../shared/service/token/token-storage.service';
 import { ActivatedRoute } from '@angular/router';

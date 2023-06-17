@@ -1,0 +1,43 @@
+<mat-card *ngIf="model">
+  <mat-card-header>
+    <mat-card-title>Campo: {{model.code}}</mat-card-title>
+    <mat-card-subtitle>{{model.name}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="h-fit">
+    <mat-list dense>
+        <mat-list-item>
+          ID: {{model.id}}
+        </mat-list-item>
+        <mat-list-item>
+          Código: {{model.code}}
+        </mat-list-item>
+        <mat-list-item>
+          Nome: {{model.name}}
+        </mat-list-item>
+        <mat-list-item>
+          Tipo: {{model.type}}
+        </mat-list-item>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Mappings
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-list dense>
+              <mat-list-item *ngFor="let entry of model.mappings | keyvalue">
+                {{entry.key}} -> {{entry.value}}
+              </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+    </mat-list>
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-actions>
+    <a mat-icon-button color="primary" aria-label="Editar" matTooltip="Editar" [routerLink]="editRoute">
+      <mat-icon class="mat-18">
+        edit_note
+      </mat-icon>
+    </a>
+  </mat-card-actions>
+</mat-card>

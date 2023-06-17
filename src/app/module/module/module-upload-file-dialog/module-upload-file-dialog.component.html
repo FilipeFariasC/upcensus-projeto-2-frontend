@@ -1,0 +1,45 @@
+<mat-card *ngIf="data">
+  <mat-card>
+      <mat-card-header>
+          <mat-card-title>{{data.code}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+          <form [formGroup]="form" (ngSubmit)="upload()">
+            <div fxLayout="row wrap" fxLayoutGap="1rem grid">
+              <div class="my-4" fxFlex="100">
+                <input
+                  type="file" id="upload-file" (change)="selectFile($event)"
+                  color="primary"
+                  id="upload-file"
+                  aria-label="Upload arquivo"
+                  matTooltip="Upload arquivo"
+                  [accept]="fileTypeAccept"
+                  [disabled]="!fileTypeAccept"
+                />
+              </div>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutGap="10px grid">
+              <div fxFlex="50">
+                <app-input-select id="file-type" label="Tipo de Arquivo" [control]="form.fileType" [options]="fileTypeOptions">
+
+                </app-input-select>
+              </div>
+              <div *ngIf="fileTypeIsTabularData" fxFlex="50">
+                <app-input-select id="ignore-header-row" label="Ignorar cabeçalho" [control]="form.ignoreHeaderRow" [options]="ignoreHeaderRowOptions">
+
+                </app-input-select>
+              </div>
+            </div>
+            <button
+              mat-button
+              type="submit"
+              class="outline outline-2 outline-lime-400"
+              [disabled]="form.disabled || form.invalid || form.untouched"
+            >
+              Upload
+            </button>
+          </form>
+      </mat-card-content>
+  </mat-card>
+</mat-card>
