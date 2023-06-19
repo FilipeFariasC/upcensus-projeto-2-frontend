@@ -1,3 +1,5 @@
+
+//remover
 export class AppConstants {
     private static API_BASE_URL = "http://localhost:8080/api/";
     private static OAUTH2_URL = AppConstants.API_BASE_URL + "oauth2/authorization/";

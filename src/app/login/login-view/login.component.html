@@ -1,0 +1,56 @@
+<div class="principal">
+    <div class="rigth-container">
+
+    </div>
+    <div class="left-container">
+        <h2>Login</h2>
+
+        <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            
+            <mat-form-field class="form-group">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput [(ngModel)]="form.email" required #email="ngModel" placeholder="Ex. pat@example.com">
+                
+                <mat-error *ngIf="f.submitted && email.invalid">
+                  Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-group">
+                <mat-label>Senha</mat-label>
+                <input type="password" matInput [(ngModel)]="form.password" required #password="ngModel" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6">
+                
+                <mat-error *ngIf="password.errors?.['required']">
+                    Necessário informar senha
+                </mat-error>
+                <mat-error *ngIf="password.errors?.['minlength']">
+                    A senha precisa ter no minimo 6 caracteres
+                </mat-error>
+                
+
+            </mat-form-field>
+
+            
+            <div class="form-group">
+                <button mat-raised-button class="green">Entrar</button>
+            </div>
+            <div class="form-group">
+                <h3 class="divider">ou</h3>
+                <p class="social-login text-center">
+                    <a mat-raised-button href="{{ googleURL }}" target="_blank">
+                        <mat-icon svgIcon="icone-google"></mat-icon>
+
+                        Entrar com o Google
+                    </a>
+
+
+                </p>
+            </div>
+        </form>
+        <div class="alert alert-success" *ngIf="isLoggedIn">{{currentUser.displayName}} <br>Logged in as {{ currentUser.roles }}.</div>
+    
+
+
+    </div>
+</div>
+

@@ -2,32 +2,44 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AppConstants } from '../../../app.constants';
+import { TokenStorageService } from '../storage/token/token-storage.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private tokenStorageService:TokenStorageService) { }
 
-  login(credentials: { name: any; password: any; }): Observable<any> {
-    return this.http.post(AppConstants.AUTH_API + 'signin', {
-      email: credentials.name,
-      password: credentials.password
-    }, httpOptions);
+
+  isLoggedIn():boolean{
+    return !!this.tokenStorageService.getToken();
   }
 
-  register(user: { name: any; email: any; password: any; matchingPassword: any; }): Observable<any> {
-    return this.http.post(AppConstants.AUTH_API + 'signup', {
-      displayName: user.name,
-      email: user.email,
-      password: user.password,
-      matchingPassword: user.matchingPassword,
-      socialProvider: 'LOCAL'
-    }, httpOptions);
+
+
+  getPublicContent(): Observable<any> {
+    return this.http.get(AppConstants.API_URL + 'all', { responseType: 'text' });
+  }
+
+  getUserBoard(): Observable<any> {
+    return this.http.get(AppConstants.API_URL + 'user', { responseType: 'text' });
+  }
+
+  getModeratorBoard(): Observable<any> {
+    return this.http.get(AppConstants.API_URL + 'mod', { responseType: 'text' });
+  }
+
+  getAdminBoard(): Observable<any> {
+    return this.http.get(AppConstants.API_URL + 'admin', { responseType: 'text' });
+  }
+
+  getCurrentUser(): Observable<any> {
+    return this.http.get(AppConstants.API_URL + 'user/me', httpOptions);
   }
 }

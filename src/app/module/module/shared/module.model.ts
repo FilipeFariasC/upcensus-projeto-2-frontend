@@ -1,15 +1,18 @@
+import { FieldMinResponse } from 'src/app/form/field/shared/field.model';
 import { DomainModel } from '../../../shared/interfaces/response';
 import { ConfigurationResponse } from '../../configuration/shared/configuration.model';
 import { FileType, FileTypeResponse, InputTemplateResponse } from '../../template/input/shared/input-template.model';
 import { OutputTemplateResponse } from '../../template/output/shared/output-template.model';
 import { MetadataResponse } from '../metadata/shared/metadata.model';
 
-export interface Record {
-  [key: string]: string;
+export interface RecordResponse {
+  identifier: AnswerResponse;
+  entries: AnswerResponse[];
 }
 
-export interface AnswerResponse {
-  [key: string]: Record;
+export interface AnswerResponse extends DomainModel {
+  field: FieldMinResponse;
+  value: string;
 }
 
 interface ModuleResponse extends DomainModel {
@@ -42,8 +45,6 @@ interface FileUploadRequest {
 
 
 export {
-  ModuleResponse,
-  ModuleRequest,
-  FileUploadRequest
-}
+  FileUploadRequest, ModuleRequest, ModuleResponse
+};
 

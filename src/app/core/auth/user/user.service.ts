@@ -7,7 +7,6 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -15,23 +14,20 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getPublicContent(): Observable<any> {
-    return this.http.get(AppConstants.API_URL + 'all', { responseType: 'text' });
+  login(credentials: { name: any; password: any; }): Observable<any> {
+    return this.http.post(AppConstants.AUTH_API + 'signin', {
+      email: credentials.name,
+      password: credentials.password
+    }, httpOptions);
   }
 
-  getUserBoard(): Observable<any> {
-    return this.http.get(AppConstants.API_URL + 'user', { responseType: 'text' });
-  }
-
-  getModeratorBoard(): Observable<any> {
-    return this.http.get(AppConstants.API_URL + 'mod', { responseType: 'text' });
-  }
-
-  getAdminBoard(): Observable<any> {
-    return this.http.get(AppConstants.API_URL + 'admin', { responseType: 'text' });
-  }
-
-  getCurrentUser(): Observable<any> {
-    return this.http.get(AppConstants.API_URL + 'user/me', httpOptions);
+  register(user: { name: any; email: any; password: any; matchingPassword: any; }): Observable<any> {
+    return this.http.post(AppConstants.AUTH_API + 'signup', {
+      displayName: user.name,
+      email: user.email,
+      password: user.password,
+      matchingPassword: user.matchingPassword,
+      socialProvider: 'LOCAL'
+    }, httpOptions);
   }
 }

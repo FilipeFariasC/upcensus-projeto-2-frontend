@@ -38,6 +38,9 @@ import { InputTextAreaComponent, InputTextComponent, NavigationBarComponent, Nav
 import { InputSelectComponent } from './component/form/input/select/select.component';
 import { DurationPipe } from './pipes';
 import { TableColumnValuePipe } from './pipes/table-column-value.pipe';
+import { LocalStorageService, SessionStorageService} from "./service/storage.service";
+import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
+
 
 
 const components: Array<Type<any> | any[]> = [
@@ -48,6 +51,11 @@ const components: Array<Type<any> | any[]> = [
   NavigationBarComponent,
   NavigationListComponent,
   NavigationItemComponent
+];
+
+const services: Array<Type<any> | any[]> = [
+  LocalStorageService,
+  SessionStorageService
 ];
 const directives: Array<Type<any> | any[]> = [];
 const pipes: Array<Type<any> | any[]> = [
@@ -90,7 +98,8 @@ const materialModules : Array<Type<any> | any[]> = [
   MatToolbarModule,
   MatTooltipModule,
   MatTabsModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatSnackBarModule
 ]
 
 const primeNgModules: Array<Type<any> | any[]> = [
@@ -117,7 +126,8 @@ const primeNgModules: Array<Type<any> | any[]> = [
     pipes,
   ],
   providers: [
-    pipes
+    pipes,
+    services
   ]
 })
 export class SharedModule { }
