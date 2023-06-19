@@ -76,7 +76,7 @@
 </ng-template>
 
 <ng-template #timestampCell let-data let-column="column">
-  {{ data | columnValue: column | date: 'dd/MM/yyyy HH:mm:ss.SSS' }}
+  {{ data | columnValue: column | date: 'dd/MM/yyyy HH:mm:ss.SSS':'GMT' }}
 </ng-template>
 
 <ng-template #timeCell let-data let-column="column">

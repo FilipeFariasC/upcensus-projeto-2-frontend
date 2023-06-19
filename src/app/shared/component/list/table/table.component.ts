@@ -15,6 +15,7 @@ export interface Column {
   type?: ColumnType;
   sortable?: boolean;
   interactions?: Array<Interactions>;
+  translate?: Map<any, any>;
 };
 
 export type Columns = Array<Column> | Column[];
@@ -40,7 +41,6 @@ export class TableComponent<Model> implements AfterViewInit{
 
   ngAfterViewInit(): void {
     console.table(this.dataSource.data);
-    console.log(this.columnKeys);
     this.cdr.detectChanges();
   }
 

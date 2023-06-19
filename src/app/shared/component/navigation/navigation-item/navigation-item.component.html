@@ -1,0 +1,14 @@
+<ng-container *ngIf="item">
+  <a
+    mat-button
+    color="primary"
+    [attr.aria-label]="item.label"
+    [matTooltip]="item.label"
+    [routerLink]="[item.route]">
+    <mat-icon class="mat-18">
+      {{item.icon}}
+    </mat-icon>
+    {{item.label}}
+  </a>
+  <mat-divider *ngIf="item.separator"></mat-divider>
+</ng-container>

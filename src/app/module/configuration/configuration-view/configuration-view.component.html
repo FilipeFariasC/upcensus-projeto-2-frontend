@@ -1,0 +1,52 @@
+<mat-card *ngIf="model">
+  <mat-card-header>
+    <mat-card-title>Configuração: {{model.code}}</mat-card-title>
+    <mat-card-subtitle>{{model.name}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="h-fit">
+    <mat-list dense>
+        <mat-list-item>
+          ID: {{model.id}}
+        </mat-list-item>
+        <mat-list-item>
+          Código: {{model.code}}
+        </mat-list-item>
+        <mat-list-item>
+          Nome: {{model.name}}
+        </mat-list-item>
+        <mat-list-item>
+          Campo Identificador: {{model.identifierField}}
+        </mat-list-item>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Campos
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-list dense>
+              <mat-list-item *ngFor="let field of model.fields">
+                {{field.field.code}}
+                <span *ngIf="field.required">
+                  Obrigatório: {{field.required ? 'SIM': 'NÃO'}}
+                </span>
+                <a mat-icon-button color="primary" aria-label="Editar" matTooltip="Editar" [routerLink]="viewFieldRoute(field.field.id)">
+                  <mat-icon class="mat-18">
+                    preview
+                  </mat-icon>
+                </a>
+              </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+    </mat-list>
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-actions>
+    <a mat-icon-button color="primary" aria-label="Editar" matTooltip="Editar" [routerLink]="editRoute">
+      <mat-icon class="mat-18">
+        edit_note
+      </mat-icon>
+    </a>
+  </mat-card-actions>
+</mat-card>

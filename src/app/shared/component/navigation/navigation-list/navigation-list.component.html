@@ -1,0 +1,23 @@
+<mat-accordion *ngIf="parent && items">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="mat-18">
+          {{parent.icon}}
+        </mat-icon>
+        {{parent.label}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="1rem">
+      <ng-container *ngFor="let item of items">
+        <ng-container *ngIf="hasChildren(item) else single">
+          <app-navigation-list [parent]="item" [items]="getChildren(item)"></app-navigation-list>
+        </ng-container>
+        <ng-template #single>
+          <app-navigation-item [item]="item"></app-navigation-item>
+        </ng-template>
+      </ng-container>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+

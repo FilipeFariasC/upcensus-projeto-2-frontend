@@ -25,8 +25,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {
@@ -34,17 +34,28 @@ import {
 } from '@angular/material/tooltip';
 
 import { ButtonModule } from 'primeng/button';
-import { InputTextAreaComponent, InputTextComponent, TableComponent } from './component';
+import { InputTextAreaComponent, InputTextComponent, NavigationBarComponent, NavigationListComponent, NavigationItemComponent, TableComponent } from './component';
 import { InputSelectComponent } from './component/form/input/select/select.component';
 import { DurationPipe } from './pipes';
 import { TableColumnValuePipe } from './pipes/table-column-value.pipe';
+import { LocalStorageService, SessionStorageService} from "./service/storage.service";
+import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
+
 
 
 const components: Array<Type<any> | any[]> = [
   InputTextAreaComponent,
   InputTextComponent,
   InputSelectComponent,
-  TableComponent
+  TableComponent,
+  NavigationBarComponent,
+  NavigationListComponent,
+  NavigationItemComponent
+];
+
+const services: Array<Type<any> | any[]> = [
+  LocalStorageService,
+  SessionStorageService
 ];
 const directives: Array<Type<any> | any[]> = [];
 const pipes: Array<Type<any> | any[]> = [
@@ -87,7 +98,8 @@ const materialModules : Array<Type<any> | any[]> = [
   MatToolbarModule,
   MatTooltipModule,
   MatTabsModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatSnackBarModule
 ]
 
 const primeNgModules: Array<Type<any> | any[]> = [
@@ -114,7 +126,8 @@ const primeNgModules: Array<Type<any> | any[]> = [
     pipes,
   ],
   providers: [
-    pipes
+    pipes,
+    services
   ]
 })
 export class SharedModule { }

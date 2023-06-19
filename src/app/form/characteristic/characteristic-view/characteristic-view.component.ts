@@ -9,10 +9,4 @@ import AppRoute from '../../../approutes.enum';
   styleUrls: ['./characteristic-view.component.scss']
 })
 export class CharacteristicViewComponent extends BaseViewComponent<CharacteristicResponse> {
-
-
-
-  editRoute(): string[] {
-    return [AppRoute.EDIT_SUFFIX];
-  }
 }

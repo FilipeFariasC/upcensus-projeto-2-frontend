@@ -1,0 +1,54 @@
+<mat-card *ngIf="model">
+  <mat-card-header>
+    <mat-card-title>Módulo: {{model.code}}</mat-card-title>
+    <mat-card-subtitle>{{model.name}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="h-fit">
+    <mat-list dense>
+        <mat-expansion-panel *ngFor="let record of records">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <a
+                mat-icon-button color="primary"
+                aria-label="Visualizar Campo"
+                matTooltip="Visualizar Campo"
+                [routerLink]="answerViewRoute(record.identifier.field.id)"
+              >
+                {{record.identifier.value}}
+              </a>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list dense>
+            <mat-list-item>
+              <div fxLayout="row wrap" fxLayoutGap="10px grid">
+                <div fxFlex="50">
+                  Campo
+                </div>
+                <div fxFlex="50">
+                  Valor
+                </div>
+              </div>
+            </mat-list-item>
+            <mat-list-item *ngFor="let entry of record.entries">
+              <div fxLayout="row wrap" fxLayoutGap="10px grid">
+                <div fxFlex="50">
+                  <a
+                    class="block"
+                    mat-icon-button color="primary"
+                    aria-label="Visualizar Campo"
+                    matTooltip="Visualizar Campo"
+                    [routerLink]="fieldViewRoute(record.identifier.field.id)"
+                  >
+                    {{entry.field.code}}
+                  </a>
+                </div>
+                <div fxFlex="50">
+                  {{entry.value || '*VAZIO*'}}
+                </div>
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

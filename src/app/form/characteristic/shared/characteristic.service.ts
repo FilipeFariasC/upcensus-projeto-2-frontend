@@ -1,11 +1,10 @@
-import { Response } from './../../../shared/interfaces/response';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DomainService } from "src/app/shared/service/domain.service";
 import { environment } from '../../../../environments/environment';
 import { EnumOption } from '../../../shared/interfaces/enum-option';
-import { CharacteristicRequest } from "./characteristic.form";
-import { Attribute, CharacteristicResponse } from './characteristic.model';
+import { Response } from './../../../shared/interfaces/response';
+import { Attribute, CharacteristicRequest, CharacteristicResponse } from './characteristic.model';
 
 
 @Injectable({

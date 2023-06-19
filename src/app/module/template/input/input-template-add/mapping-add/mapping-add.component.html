@@ -1,0 +1,29 @@
+<form [formGroup]="group">
+  <div formArrayName="mappings">
+    <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
+      <button mat-button type="button" (click)="addItem()" [disabled]="array.invalid">Adicionar</button>
+      <button mat-button type="button" (click)="clear()" [disabled]="array.length === 1">Limpar</button>
+    </div>
+    <div fxLayout="row wrap" fxLayoutGap="10px grid">
+      <div fxFlex="33">
+        Campo
+      </div>
+      <div fxFlex>
+        Mapeamento
+      </div>
+    </div>
+    <div *ngFor="let item of array.controls; let i = index">
+      <div fxLayout="row" fxLayoutAlign="space-between none" fxLayoutGap="10px grid">
+        <div fxFlex="33">
+          <app-input-select [id]="'field-'+i" label="Campo" [options]="fieldOptions" [control]="getFormControl(item, 'field')"></app-input-select>
+        </div>
+        <div fxFlex="grow">
+          <app-input-text [id]="'mapping-'+i" label="Mapeamento" [control]="getFormControl(item, 'mapping')"></app-input-text>
+        </div>
+        <div fxFlex>
+          <button fxFlex fxFlexAlign="stretch" mat-button type="button" (click)="removeItem(i)" [disabled]="array.length === 1">Remover</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

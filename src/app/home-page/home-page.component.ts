@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDrawerMode } from '@angular/material/sidenav';
-import { UserService } from '../user.service';
-
+import { AuthService } from '../core/auth/security/auth.service';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -13,11 +12,11 @@ export class HomePageComponent {
 
 
   content!: string;
- 
-  constructor(private userService: UserService) { }
- 
+
+  constructor(private authService: AuthService) { }
+
   ngOnInit(): void {
-    this.userService.getPublicContent().subscribe(
+    this.authService.getPublicContent().subscribe(
       data => {
         this.content = data;
       },

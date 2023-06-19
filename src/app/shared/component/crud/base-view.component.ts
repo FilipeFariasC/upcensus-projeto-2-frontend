@@ -1,6 +1,6 @@
 import { Directive, OnInit, Injector, ChangeDetectorRef } from '@angular/core';
 import { FormAdd } from '../../form/form.model';
-import { Observable, finalize, of } from 'rxjs';
+import { Observable, catchError, finalize, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseCrudService } from '../../service/base.service';
 import AppRoute from '../../../approutes.enum';
@@ -24,7 +24,7 @@ export abstract class BaseViewComponent<M> implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(()=>{
-      this.fetchModel()
+      this.fetchModel();
     });
   }
 
@@ -35,19 +35,35 @@ export abstract class BaseViewComponent<M> implements OnInit {
     return this._model;
   }
 
+  get editRoute(): string[] {
+    return [AppRoute.EDIT_SUFFIX]
+  }
+
   private fetchModel(): void {
     this.service.findById(this.id)
       .pipe(
         finalize(()=>{
           this.cdr.detectChanges();
+        }),
+        catchError(()=>{
+          this.navigateBackToList();
+          return of();
         })
       )
       .subscribe(response=>{
         this._model = response.data;
+        this.fetchData();
       })
+  }
+  protected fetchData(): void {
+
   }
 
   private navigateBackToList(): void {
     this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+  }
+
+  protected buildUrl(root?: boolean, ...params: string[]): string {
+    return `${root ? '/' : ''}${params.join('/')}`;
   }
 }
