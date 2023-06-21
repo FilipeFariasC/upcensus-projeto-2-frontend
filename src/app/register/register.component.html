@@ -1,46 +1,91 @@
-<div class="col-md-12">
-    <div class="card card-container">
-        <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+<div class="principal">
+    <div class="rigth-container">
+
+    </div>
+    <div class="left-container">
+        <h2>Cadastrar</h2>
+
         <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            
+            <mat-form-field class="form-group">
+                <mat-label>Nome</mat-label>
+                <input name="name" type="text" matInput [(ngModel)]="form.name" required #name="ngModel"  minlength="3" maxlength="30"  >
+                
+                <mat-error *ngIf="name.errors?.['required']">
+                    Necessário informar um nome
+                </mat-error>
+                <mat-error *ngIf="name.errors?.['minlength']">
+                    O nome deve ter no mínimo 3 caracteres
+                </mat-error>
+                <mat-error *ngIf="name.errors?.['maxlength']">
+                    O nome deve ter no máximo 30 caracteres
+                </mat-error>
+            
+            </mat-form-field>
+
+
+            <mat-form-field class="form-group">
+                <mat-label>Email</mat-label>
+                <input name="email" type="email" matInput [(ngModel)]="form.email" required email #email="ngModel" placeholder="Ex. pat@example.com">
+                
+                <mat-error *ngIf="email.errors?.['required']">
+                    Necessário informar E-mail
+                </mat-error>
+                <mat-error *ngIf="email.errors?.['email']">
+                    O E-mail é inválido
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-group">
+                <mat-label>Senha</mat-label>
+                <input type="password" matInput [(ngModel)]="form.password" required #password="ngModel" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6">
+                
+                <mat-error *ngIf="password.errors?.['required']">
+                    Necessário informar senha
+                </mat-error>
+                <mat-error *ngIf="password.errors?.['minlength']">
+                    A senha precisa ter no minimo 6 caracteres
+                </mat-error>
+                
+
+            </mat-form-field>
+
+            <mat-form-field class="form-group">
+                <mat-label>Repetir Senha</mat-label>
+                <input type="password" matInput [(ngModel)]="form.matchingPassword" required #matchingPassword="ngModel" class="form-control" name="matchingPassword" [(ngModel)]="form.matchingPassword" required minlength="6">
+                
+                <mat-error *ngIf="matchingPassword.errors?.['required']">
+                    Necessário informar senha
+                </mat-error>
+                <mat-error *ngIf="matchingPassword.errors?.['minlength']">
+                    A senha precisa ter no minimo 6 caracteres
+                </mat-error>
+                
+
+            </mat-form-field>
+
+            
             <div class="form-group">
-                <label for="displayName">Display Name</label> <input type="text" class="form-control" name="displayName" [(ngModel)]="form.displayName" required minlength="3"
-                    maxlength="20" #displayName="ngModel" />
-                <div class="alert-danger" *ngIf="f.submitted && displayName.invalid">
-                    <div *ngIf="displayName.errors?.['required']">Display Name is required</div>
-                    <div *ngIf="displayName.errors?.['minlength']">Display Name must be at least 3 characters</div>
-                    <div *ngIf="displayName.errors?.['maxlength']">Display Name must be at most 20 characters</div>
-                </div>
+                <button mat-raised-button class="green">Cadastrar</button>
             </div>
             <div class="form-group">
-                <label for="email">Email</label> <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required email #email="ngModel" />
-                <div class="alert-danger" *ngIf="f.submitted && email.invalid">
-                    <div *ngIf="email.errors?.['required']">Email is required</div>
-                    <div *ngIf="email.errors?.['email']">Email must be a valid email address</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label> <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6"
-                    #password="ngModel" />
-                <div class="alert-danger" *ngIf="f.submitted && password.invalid">
-                    <div *ngIf="password.errors?.['required']">Password is required</div>
-                    <div *ngIf="password.errors?.['minlength']">Password must be at least 6 characters</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="matchingPassword">Confirm Password</label> <input type="password" class="form-control" name="matchingPassword" [(ngModel)]="form.matchingPassword"
-                    required minlength="6" #matchingPassword="ngModel" />
-                <div class="alert-danger" *ngIf="f.submitted && matchingPassword.invalid">
-                    <div *ngIf="matchingPassword.errors?.['required']">Confirm Password is required</div>
-                    <div *ngIf="matchingPassword.errors?.['minlength']">Confirm Password must be at least 6 characters</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary btn-block">Sign Up</button>
-            </div>
-            <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-                Signup failed!<br />{{ errorMessage }}
+                <h3 class="divider">ou</h3>
+                <p class="social-login text-center">
+                    <a mat-raised-button href="{{ googleURL }}" target="_blank">
+                        <mat-icon svgIcon="icone-google"></mat-icon>
+
+                        Entrar com o Google
+                    </a>
+
+
+                </p>
             </div>
         </form>
-        <div class="alert alert-success" *ngIf="isSuccessful">Your registration is successful!</div>
+
     </div>
 </div>
+
+
+
+
+

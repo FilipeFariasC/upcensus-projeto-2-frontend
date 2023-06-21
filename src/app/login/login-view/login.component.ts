@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AppConstants } from 'src/app/app.constants';
 import { AuthService } from 'src/app/core/auth/security/auth.service';
 import { TokenStorageService } from 'src/app/core/auth/storage/token/token-storage.service';
 import { UserStorageService } from 'src/app/core/auth/storage/user/user-storage.service';
@@ -8,6 +7,8 @@ import { UserService } from 'src/app/core/auth/user/user.service';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
+
 
 
 @Component({
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   currentUser: any;
-  googleURL = AppConstants.GOOGLE_AUTH_URL;
+  googleURL = environment.baseUrl+environment.oAuth2Url+"/google"+environment.redirectAuth;
 
   constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer,private snackBar: MatSnackBar,private authService: AuthService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private userService: UserService, private userStorageService:UserStorageService) {}
 

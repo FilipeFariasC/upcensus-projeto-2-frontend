@@ -9,7 +9,7 @@
             
             <mat-form-field class="form-group">
                 <mat-label>Email</mat-label>
-                <input type="email" matInput [(ngModel)]="form.email" required #email="ngModel" placeholder="Ex. pat@example.com">
+                <input type="email" matInput [(ngModel)]="form.email" required #email="ngModel" placeholder="Ex. pat@example.com" name="email">
                 
                 <mat-error *ngIf="f.submitted && email.invalid">
                   Email is <strong>required</strong>
