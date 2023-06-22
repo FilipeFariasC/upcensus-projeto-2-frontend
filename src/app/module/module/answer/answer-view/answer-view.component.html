@@ -1,0 +1,42 @@
+<mat-card *ngIf="model">
+  <mat-card-header>
+    <mat-card-title>Registro: {{model.id}}</mat-card-title>
+    <mat-card-subtitle>{{model.field.code}} - {{model.value}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="h-fit">
+    <mat-list dense>
+      <mat-list-item>
+        Identificador: {{model.id}}
+      </mat-list-item>
+      <mat-list-item>
+        Valor: {{model.value}}
+      </mat-list-item>
+    </mat-list>
+    <mat-expansion-panel *ngIf="dataSourceErrors?.data?.length ?? 0 > 0">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Erros
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-table
+        class="w-full"
+        [dataSource]="dataSourceErrors"
+        [columns]="columnsErrors"
+      >
+      </app-table>
+    </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="dataSourceRecords?.data?.length ?? 0 > 0">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Registros relacionados
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-table
+        class="w-full"
+        [dataSource]="dataSourceRecords"
+        [columns]="columnsRecords"
+      >
+      </app-table>
+    </mat-expansion-panel>
+  </mat-card-content>
+</mat-card>

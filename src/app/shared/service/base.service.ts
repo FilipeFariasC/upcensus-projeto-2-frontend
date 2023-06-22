@@ -1,4 +1,4 @@
-import { Page } from './../interfaces/pageable';
+import { Page, Pageable } from './../interfaces/pageable';
 import { Injectable, Injector } from '@angular/core';;
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -28,8 +28,8 @@ export abstract class BaseCrudService<Request, Model> {
     return this.httpClient.get<Response<Model[]>>(this.buildUrl("all"));
   }
 
-  findAll (): Observable<Response<Page<Model>>> {
-    return this.httpClient.get<Response<Page<Model>>>(this.baseUrl);
+  findAll (pageable?: Pageable): Observable<Response<Page<Model>>> {
+    return this.httpClient.get<Response<Page<Model>>>(this.baseUrl, {params: pageable});
   }
   findById (id: number): Observable<Response<Model>> {
     return this.httpClient.get<Response<Model>>(this.buildUrl(id.toString()));

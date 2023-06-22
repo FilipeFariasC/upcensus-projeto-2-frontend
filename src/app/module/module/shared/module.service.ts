@@ -1,11 +1,11 @@
-import { Page } from './../../../shared/interfaces/pageable';
 import { Injectable } from '@angular/core';
-import { Observable, share, shareReplay, tap } from 'rxjs';
+import { Observable, shareReplay } from 'rxjs';
+import { Response } from 'src/app/shared/interfaces';
 import { DomainService } from "src/app/shared/service/domain.service";
 import { environment } from '../../../../environments/environment';
-import { AnswerResponse, FileUploadRequest, ModuleRequest, ModuleResponse, RecordResponse } from './module.model';
-import { Response } from 'src/app/shared/interfaces';
-import { FileUploadFormData, ModuleFileUploadForm } from './module.form';
+import { Page, Pageable } from './../../../shared/interfaces/pageable';
+import { FileUploadFormData } from './module.form';
+import { AnswerResponse, ModuleRequest, ModuleResponse, RecordMinResponse, RecordResponse } from './module.model';
 
 
 @Injectable({
@@ -15,8 +15,11 @@ export class ModuleService extends DomainService<ModuleRequest, ModuleResponse> 
   protected override _baseUrl: string = `${environment.baseUrl}/module/modules`;
 
 
-  getAnswers (idModule: number): Observable<Response<Page<RecordResponse>>> {
-    return this.httpClient.get<Response<Page<RecordResponse>>>(this.buildUrl(`${idModule}`, "answers"));
+  getRecords(idModule: number, pageable: Pageable): Observable<Response<Page<RecordMinResponse>>> {
+    return this.httpClient.get<Response<Page<RecordMinResponse>>>(this.buildUrl(`${idModule}`, "answers"), {params: pageable});
+  }
+  getAnswer(idModule: number, idAnswer: number): Observable<Response<AnswerResponse>> {
+    return this.httpClient.get<Response<AnswerResponse>>(this.buildUrl(`${idModule}`, "answers", `${idAnswer}`));
   }
 
   uploadFile(idModule: number, fileUploadFormData: FileUploadFormData): Observable<Response<void>> {

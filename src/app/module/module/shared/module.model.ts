@@ -5,14 +5,42 @@ import { FileType, FileTypeResponse, InputTemplateResponse } from '../../templat
 import { OutputTemplateResponse } from '../../template/output/shared/output-template.model';
 import { MetadataResponse } from '../metadata/shared/metadata.model';
 
+export interface RecordMinResponse {
+  identifier: AnswerMinResponse;
+  entries: AnswerMinResponse[];
+}
+
 export interface RecordResponse {
   identifier: AnswerResponse;
   entries: AnswerResponse[];
 }
 
+export enum Motive {
+  attribute = 'ATTRIBUTE',
+  option = 'OPTION',
+  dependency = 'DEPENDENCY',
+  exclusive = 'EXCLUSIVE',
+  valueCondition = 'VALUE_CONDITION'
+}
+
+export interface AnswerErrorResponse extends DomainModel {
+  motive: Motive,
+  description: string;
+}
+
+export type AnswerErrorResponses = AnswerErrorResponse[];
+
+
+export interface AnswerMinResponse extends DomainModel {
+  field: FieldMinResponse;
+  value: string;
+  has_errors: boolean;
+}
 export interface AnswerResponse extends DomainModel {
   field: FieldMinResponse;
   value: string;
+  errors: AnswerErrorResponses;
+  identifies: AnswerMinResponse[];
 }
 
 interface ModuleResponse extends DomainModel {

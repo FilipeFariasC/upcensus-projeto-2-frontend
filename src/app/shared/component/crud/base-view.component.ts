@@ -1,9 +1,8 @@
-import { Directive, OnInit, Injector, ChangeDetectorRef } from '@angular/core';
-import { FormAdd } from '../../form/form.model';
-import { Observable, catchError, finalize, of } from 'rxjs';
+import { ChangeDetectorRef, Directive, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BaseCrudService } from '../../service/base.service';
+import { catchError, finalize, map, of } from 'rxjs';
 import AppRoute from '../../../approutes.enum';
+import { BaseCrudService } from '../../service/base.service';
 
 
 @Directive()
@@ -31,6 +30,7 @@ export abstract class BaseViewComponent<M> implements OnInit {
   get id(): number {
     return this.activatedRoute.snapshot.params['id'];
   }
+
   get model(): M {
     return this._model;
   }

@@ -20,17 +20,6 @@ export class TableColumnValuePipe implements PipeTransform {
     }
 
     private findValue(key: string, value: any): any {
-      const accessors = key.split(".");
-
-      let variable = value;
-      for (let accessor of accessors) {
-        if (variable.hasOwnProperty(accessor)) {
-          variable = variable[accessor];
-        } else {
-          variable = TableColumnValuePipe.VAZIO;
-          break;
-        }
-      }
-      return variable;
+      return eval(`(data)=>data.${key}`)(value);
     }
 }

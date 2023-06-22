@@ -5,6 +5,8 @@ import { finalize } from 'rxjs';
 import { BaseCrudService } from '../../service/base.service';
 import { TableComponent } from '../list';
 import AppRoute from 'src/app/approutes.enum';
+import { Pageable, Pagination } from '../../interfaces/pageable';
+import { MatPaginator } from '@angular/material/paginator';
 
 export default interface UrlParams {
   [key: string]: any;
@@ -41,22 +43,33 @@ export abstract class BaseListComponent<Model> implements OnInit, AfterViewInit 
     return this.activatedRoute.snapshot.queryParams;
   }
 
+  get pagination(): Pagination {
+    return {
+      length: this._totalElements,
+      size: this.pageRequest.size,
+      index: this.pageRequest.page,
+      sizeOptions: this._defaultPageSizeOptions
+    };
+  }
+
   ngOnInit(): void {
     this.fetchData();
-    this.service.findAll()
-      .pipe(
-        finalize(()=>{
-          this.cdr.detectChanges();
-          this.table.cdr.detectChanges();
-        })
-      )
-      .subscribe((response)=>{
-        const data = response.data;
-        this._dataSource.data = data.content;
-        this._totalElements = data.totalElements;
-      });
+    this.display();
   }
   ngAfterViewInit(): void {
+  }
+
+  getPaginator(): MatPaginator {
+    return this.table?.paginator;
+  }
+
+  get pageRequest(): Pageable {
+    const paginator = this.getPaginator();
+
+    return {
+      page: (paginator?.pageIndex || (parseInt(this.urlParams['page'], 10) || 1) - 1),
+      size: paginator?.pageSize || (parseInt(this.urlParams['size'], 10) || this._defaultPageSize),
+    };
   }
 
   get registerRoute(): string[] {
@@ -68,4 +81,25 @@ export abstract class BaseListComponent<Model> implements OnInit, AfterViewInit 
 
   protected fetchLazy(): void { }
 
+  display(): void {
+
+    this.service.findAll(this.pageRequest)
+      .pipe(
+        finalize(()=>{
+          this.router.navigate([], {
+            queryParams: {
+              page: this.pageRequest.page + 1,
+              size: this.pageRequest.size
+            }
+          })
+          this.cdr.detectChanges();
+          this.table.cdr.detectChanges();
+        })
+      )
+      .subscribe((response)=>{
+        const data = response.data;
+        this._dataSource.data = data.content;
+        this._totalElements = data.totalElements;
+      });
+  }
 }

@@ -96,17 +96,12 @@ export class InputTemplateAddForm extends FormAdd<InputTemplateRequest, InputTem
 
   private toFieldMapping(mappings: Mapping): FieldMap[] {
     const map: FieldMap[] = [];
-
-    console.log(mappings);
-
     for (let [key, value] of Object.entries(mappings)){
       map.push({
         field: key,
         mapping: value
       });
     }
-    console.log(map);
-
     return map;
   }
 }

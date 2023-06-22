@@ -11,8 +11,6 @@ export class MetadataService extends DomainService<MetadataRequest, MetadataResp
   protected override _baseUrl: string = `${environment.baseUrl}/module/modules/metadata`;
 
   protected override buildUrl(...paths: string[]): string {
-    console.log(paths);
-    console.log('????');
     return super.buildUrl(...paths);
   }
 }

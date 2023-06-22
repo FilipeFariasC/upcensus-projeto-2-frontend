@@ -3,4 +3,10 @@
     Cadastrar
   </button>
 </div>
-<app-table class="w-full" [dataSource]="dataSource" [columns]="columns"></app-table>
+<app-table
+class="w-full"
+[dataSource]="dataSource"
+[columns]="columns"
+[pagination]="pagination"
+(page)="display()"
+></app-table>

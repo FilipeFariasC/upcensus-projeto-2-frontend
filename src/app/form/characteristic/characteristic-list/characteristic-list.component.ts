@@ -4,6 +4,7 @@ import { BaseListComponent } from 'src/app/shared/component/crud/base-list.compo
 import { Columns, TableComponent } from 'src/app/shared/component/list/table/table.component';
 import { CharacteristicService } from '../shared/characteristic.service';
 import { Attribute, CharacteristicResponse } from './../shared/characteristic.model';
+import { Pagination } from 'src/app/shared/interfaces/pageable';
 
 @Component({
   selector: 'app-characteristic-list',

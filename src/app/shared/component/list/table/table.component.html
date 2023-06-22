@@ -33,7 +33,14 @@
   <tr mat-header-row *matHeaderRowDef="columnKeys"></tr>
   <tr mat-row *matRowDef="let row; columns: columnKeys"></tr>
 </table>
-
+<mat-paginator
+  *ngIf="pagination"
+  [length]="pagination.length"
+  [pageIndex]="pagination.index"
+  [pageSize]="pagination.size"
+  [pageSizeOptions]="pagination.sizeOptions"
+  (page)="page.emit()"
+></mat-paginator>
 
 
 <ng-template #empty>
@@ -86,15 +93,15 @@
 <ng-template #interactiveCell let-data let-column="column">
   <ng-container *ngFor="let interaction of column.interactions">
     <ng-container [ngSwitch]="interaction">
-      <a *ngSwitchCase="'view'" mat-icon-button color="primary" aria-label="Detalhes" matTooltip="Detalhes" [routerLink]="viewRoute(data.id)">
+      <a *ngSwitchCase="'view'" mat-icon-button color="primary" aria-label="Detalhes" matTooltip="Detalhes" [routerLink]="viewRoute(column, data.id)">
         <mat-icon class="mat-18">preview</mat-icon>
       </a>
-      <a *ngSwitchCase="'edit'" mat-icon-button color="primary" aria-label="Editar" matTooltip="Editar" [routerLink]="editRoute(data.id)">
+      <a *ngSwitchCase="'edit'" mat-icon-button color="primary" aria-label="Editar" matTooltip="Editar" [routerLink]="editRoute(column, data.id)">
         <mat-icon class="mat-18">
           edit_note
         </mat-icon>
       </a>
-      <button *ngSwitchCase="'delete'" mat-icon-button color="primary" aria-label="Excluir" matTooltip="Excluir" [routerLink]="editRoute(data.id)">
+      <button *ngSwitchCase="'delete'" mat-icon-button color="primary" aria-label="Excluir" matTooltip="Excluir" [routerLink]="editRoute(column, data.id)">
         <mat-icon class="mat-18">
           edit_note
         </mat-icon>
